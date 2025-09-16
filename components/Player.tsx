@@ -34,7 +34,7 @@ const Player = ({ preset }: PlayerProps) => {
         <Pressable onPress={togglePlayPause} style={styles.button}>
           <Ionicons
             name={isPlaying ? "pause" : "play"}
-            size={32}
+            size={60}
             color={COLORS.background}
           />
         </Pressable>
@@ -51,9 +51,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
-    width: 100,
+    width: 140,
     aspectRatio: 1,
-    borderRadius: 64,
+    borderRadius: 100,
     backgroundColor: COLORS.text,
     justifyContent: "center",
     alignItems: "center",
