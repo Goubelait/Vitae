@@ -1,0 +1,94 @@
+import { Ionicons } from "@expo/vector-icons";
+import { presetStyles } from "assets/PresetStyle";
+import Player from "components/Player";
+import PresetList from "components/Preset";
+import { COLORS } from "constants/Colors";
+import { Link } from "expo-router";
+import React, { useState } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+export default function PlayerScreen() {
+  const [selectedPreset, setSelectedPreset] = useState(presetStyles[0]);
+
+  return (
+    <SafeAreaView style={styles.body}>
+      <View>
+        <View style={styles.header}>
+          <View style={styles.headerTop}>
+            <Text style={styles.title}>Vitae</Text>
+
+            <Link href="/information" asChild>
+              <Pressable>
+                <Ionicons name="alert-outline" size={34} color={COLORS.text} />
+              </Pressable>
+            </Link>
+          </View>
+          <Text style={styles.subtitle}>Headphones required</Text>
+        </View>
+
+        <View style={styles.playerContainer}>
+          <Player preset={selectedPreset} />
+        </View>
+
+        <View style={styles.container}>
+          {presetStyles.map((p) => (
+            <PresetList
+              key={p.id}
+              preset={p}
+              onPress={() => setSelectedPreset(p)}
+            />
+          ))}
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  body: {
+    backgroundColor: COLORS.background,
+    flex: 1,
+    gap: 16,
+  },
+  headerTop: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  header: {
+    margin: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+  },
+  playerContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+    marginBottom: 10,
+    paddingHorizontal: 16,
+  },
+  container: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    alignContent: "flex-start",
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    width: "100%",
+    maxWidth: 420,
+    alignSelf: "center",
+    gap: 12,
+  },
+  title: {
+    fontSize: 34,
+    fontWeight: "800",
+    color: COLORS.text,
+  },
+  subtitle: {
+    fontSize: 18,
+    color: COLORS.subtext,
+    marginTop: 6,
+  },
+});
