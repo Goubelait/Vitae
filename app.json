@@ -11,7 +11,7 @@
     "splash": {
       "image": "./assets/images/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0D1F23"
     },
     "ios": {
       "supportsTablet": true,
@@ -39,10 +39,7 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": [
-      "expo-router",
-      "expo-audio"
-    ],
+    "plugins": ["expo-router", "expo-audio"],
     "experiments": {
       "typedRoutes": true,
       "tsconfigPaths": true
@@ -53,7 +50,7 @@
         "projectId": "ca93dabf-6bde-418c-b65f-076550a44211"
       }
     },
-    "owner": "gobelait",
+    "owner": "Antonin Weissgerber",
     "runtimeVersion": {
       "policy": "appVersion"
     },
