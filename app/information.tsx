@@ -16,7 +16,7 @@ export default function SettingsScreen() {
             <Pressable>
               <Ionicons
                 name="arrow-back-outline"
-                size={34}
+                size={42}
                 color={COLORS.text}
               />
             </Pressable>
@@ -61,9 +61,11 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   title: {
-    fontSize: 28,
+    fontSize: 30,
+    marginLeft: 20,
     fontWeight: "800",
     color: COLORS.text,
     textAlign: "center",
+    width: "100%",
   },
 });

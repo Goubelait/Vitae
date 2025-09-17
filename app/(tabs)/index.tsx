@@ -20,7 +20,7 @@ export default function PlayerScreen() {
 
             <Link href="/information" asChild>
               <Pressable>
-                <Ionicons name="alert-outline" size={34} color={COLORS.text} />
+                <Ionicons name="alert-outline" size={42} color={COLORS.text} />
               </Pressable>
             </Link>
           </View>
@@ -82,12 +82,12 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   title: {
-    fontSize: 34,
+    fontSize: 42,
     fontWeight: "800",
     color: COLORS.text,
   },
   subtitle: {
-    fontSize: 18,
+    fontSize: 21,
     color: COLORS.subtext,
     marginTop: 6,
   },
