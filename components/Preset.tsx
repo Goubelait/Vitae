@@ -6,20 +6,21 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 
 type PresetProps = {
   preset: Preset;
+  isSelected?: boolean;
   onPress?: () => void;
 };
 
-const PresetList = ({ preset, onPress }: PresetProps) => {
+const PresetList = ({ preset, isSelected, onPress }: PresetProps) => {
   return (
     <Pressable style={styles.presetWrapper} onPress={onPress}>
-      <View style={styles.preset}>
-        <Text style={styles.presetName}>{preset.name}</Text>
+      <View style={[styles.preset, isSelected && styles.selected]}>
         <Ionicons
           style={styles.presetIcon}
           name={preset.icon as any}
           size={24}
-          color={COLORS.text}
+          color={isSelected ? COLORS.accent : COLORS.text}
         />
+        <Text style={styles.presetName}>{preset.name}</Text>
         <Text style={styles.presetSubtitle}>{preset.subtitle}</Text>
       </View>
     </Pressable>
@@ -43,6 +44,16 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     padding: 20,
   },
+  selected: {
+    borderColor: COLORS.accent,
+    borderWidth: 3,
+    backgroundColor: COLORS.accent + "22", // accent translucide
+    shadowColor: COLORS.accent,
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 3 },
+  },
+
   presetIcon: {
     color: COLORS.text,
     position: "absolute",

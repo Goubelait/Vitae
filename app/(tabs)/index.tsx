@@ -32,11 +32,12 @@ export default function PlayerScreen() {
         </View>
 
         <View style={styles.container}>
-          {presetStyles.map((p) => (
+          {presetStyles.map((preset) => (
             <PresetList
-              key={p.id}
-              preset={p}
-              onPress={() => setSelectedPreset(p)}
+              key={preset.id}
+              preset={preset}
+              isSelected={preset.id === selectedPreset.id}
+              onPress={() => setSelectedPreset(preset)}
             />
           ))}
         </View>
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 22,
     paddingHorizontal: 16,
   },
   container: {
