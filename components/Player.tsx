@@ -1,38 +1,40 @@
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "constants/Colors";
-import { useAudioPlayer } from "expo-audio";
-import React, { useState } from "react";
+import { useAudioPlayer, useAudioPlayerStatus } from "expo-audio";
+import React, { useEffect } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 
 type PlayerProps = {
-  preset: {
-    sounds: { left: any; right: any };
-  };
+  preset: { sound: any };
+  isPlaying: boolean;
+  onToggle: () => void;
 };
 
-const Player = ({ preset }: PlayerProps) => {
-  const leftPlayer = useAudioPlayer(preset.sounds.left);
-  const rightPlayer = useAudioPlayer(preset.sounds.right);
+export default function Player({ preset, isPlaying, onToggle }: PlayerProps) {
+  const player = useAudioPlayer(preset.sound);
+  const status = useAudioPlayerStatus(player);
 
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const togglePlayPause = async () => {
+  useEffect(() => {
     if (isPlaying) {
-      await leftPlayer.pause();
-      await rightPlayer.pause();
-      setIsPlaying(false);
+      player.play();
     } else {
-      await leftPlayer.play();
-      await rightPlayer.play();
-      setIsPlaying(true);
+      player.pause();
+      player.seekTo(0);
     }
-  };
+  }, [isPlaying, player]);
+
+  useEffect(() => {
+    if (status.didJustFinish && isPlaying) {
+      player.seekTo(0);
+      player.play();
+    }
+  }, [status.didJustFinish, isPlaying, player]);
 
   return (
     <View>
       <View style={styles.container}>
         <Pressable
-          onPress={togglePlayPause}
+          onPress={onToggle}
           style={[styles.button, isPlaying && styles.playing]}
         >
           <Ionicons
@@ -44,9 +46,7 @@ const Player = ({ preset }: PlayerProps) => {
       </View>
     </View>
   );
-};
-
-export default Player;
+}
 
 const styles = StyleSheet.create({
   container: {

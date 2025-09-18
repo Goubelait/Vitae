@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { presetStyles } from "assets/PresetStyle";
+import { Preset } from "assets/Types";
 import Player from "components/Player";
 import PresetList from "components/Preset";
 import { COLORS } from "constants/Colors";
@@ -11,6 +12,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function PlayerScreen() {
   const [selectedPreset, setSelectedPreset] = useState(presetStyles[0]);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const selectPreset = (preset: Preset) => {
+    setIsPlaying(false);
+    setTimeout(() => {
+      setSelectedPreset(preset);
+    }, 200);
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
@@ -35,7 +44,12 @@ export default function PlayerScreen() {
         </View>
 
         <View style={styles.playerContainer}>
-          <Player preset={selectedPreset} />
+          <Player
+            key={selectedPreset.id}
+            preset={selectedPreset}
+            isPlaying={isPlaying}
+            onToggle={() => setIsPlaying((v) => !v)}
+          />
         </View>
 
         <View style={styles.container}>
@@ -44,7 +58,7 @@ export default function PlayerScreen() {
               key={preset.id}
               preset={preset}
               isSelected={preset.id === selectedPreset.id}
-              onPress={() => setSelectedPreset(preset)}
+              onPress={() => selectPreset(preset)}
             />
           ))}
         </View>

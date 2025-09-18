@@ -3,8 +3,5 @@ export type Preset = {
   name: string;
   icon: string;
   subtitle: string;
-  sounds: {
-    left: any;
-    right: any;
-  };
+  sound: any;
 };
