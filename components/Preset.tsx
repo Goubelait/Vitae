@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     backgroundColor: COLORS.panel,
     borderColor: COLORS.border,
-    borderWidth: 1,
+    borderWidth: 2,
     justifyContent: "flex-end",
     padding: 20,
 

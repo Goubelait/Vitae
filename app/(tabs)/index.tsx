@@ -13,12 +13,12 @@ export default function PlayerScreen() {
   const [selectedPreset, setSelectedPreset] = useState(presetStyles[0]);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
       <LinearGradient
         colors={["#0D1F23", "#132E35", "#0D1F23"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
-        style={{ flex: 1 }}
+        style={StyleSheet.absoluteFillObject}
       />
       <View style={styles.body}>
         <View style={styles.header}>
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     gap: 16,
+    backgroundColor: "transparent",
   },
   headerTop: {
     flexDirection: "row",
