@@ -3,6 +3,7 @@ import { presetStyles } from "assets/PresetStyle";
 import Player from "components/Player";
 import PresetList from "components/Preset";
 import { COLORS } from "constants/Colors";
+import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
 import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
@@ -12,8 +13,14 @@ export default function PlayerScreen() {
   const [selectedPreset, setSelectedPreset] = useState(presetStyles[0]);
 
   return (
-    <SafeAreaView style={styles.body}>
-      <View>
+    <SafeAreaView>
+      <LinearGradient
+        colors={["#0D1F23", "#132E35", "#0D1F23"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={StyleSheet.absoluteFillObject}
+      />
+      <View style={styles.body}>
         <View style={styles.header}>
           <View style={styles.headerTop}>
             <Text style={styles.title}>Vitae</Text>
@@ -48,7 +55,6 @@ export default function PlayerScreen() {
 
 const styles = StyleSheet.create({
   body: {
-    backgroundColor: COLORS.background,
     flex: 1,
     gap: 16,
   },
@@ -83,11 +89,13 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   title: {
+    fontFamily: "Inter_700Bold",
     fontSize: 42,
     fontWeight: "800",
     color: COLORS.text,
   },
   subtitle: {
+    fontFamily: "Inter_400Regular",
     fontSize: 21,
     color: COLORS.subtext,
     marginTop: 6,

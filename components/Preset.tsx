@@ -43,11 +43,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: "flex-end",
     padding: 20,
+
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
   },
   selected: {
     borderColor: COLORS.accent,
     borderWidth: 3,
-    backgroundColor: COLORS.accent + "22", // accent translucide
+    backgroundColor: COLORS.accent + "22",
     shadowColor: COLORS.accent,
     shadowOpacity: 0.4,
     shadowRadius: 8,
@@ -62,6 +67,7 @@ const styles = StyleSheet.create({
     fontSize: 38,
   },
   presetName: {
+    fontFamily: "Inter_700Bold",
     color: COLORS.text,
     fontSize: 24,
     marginBottom: 4,
@@ -69,6 +75,7 @@ const styles = StyleSheet.create({
     maxWidth: 170,
   },
   presetSubtitle: {
+    fontFamily: "Inter_400Regular",
     color: COLORS.subtext,
     fontSize: 14,
   },

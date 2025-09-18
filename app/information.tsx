@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   title: {
+    fontFamily: "Inter_700Bold",
     fontSize: 30,
     marginLeft: 20,
     fontWeight: "800",

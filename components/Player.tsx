@@ -31,11 +31,14 @@ const Player = ({ preset }: PlayerProps) => {
   return (
     <View>
       <View style={styles.container}>
-        <Pressable onPress={togglePlayPause} style={styles.button}>
+        <Pressable
+          onPress={togglePlayPause}
+          style={[styles.button, isPlaying && styles.playing]}
+        >
           <Ionicons
             name={isPlaying ? "pause" : "play"}
             size={60}
-            color={COLORS.background}
+            color={COLORS.panel}
           />
         </Pressable>
       </View>
@@ -54,8 +57,15 @@ const styles = StyleSheet.create({
     width: 140,
     aspectRatio: 1,
     borderRadius: 100,
-    backgroundColor: COLORS.text,
+    backgroundColor: COLORS.accent,
     justifyContent: "center",
     alignItems: "center",
+    shadowColor: COLORS.accent,
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 0 },
+  },
+  playing: {
+    backgroundColor: COLORS.accent + "98",
   },
 });
