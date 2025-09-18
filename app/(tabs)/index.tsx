@@ -13,12 +13,12 @@ export default function PlayerScreen() {
   const [selectedPreset, setSelectedPreset] = useState(presetStyles[0]);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient
         colors={["#0D1F23", "#132E35", "#0D1F23"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
-        style={StyleSheet.absoluteFillObject}
+        style={{ flex: 1 }}
       />
       <View style={styles.body}>
         <View style={styles.header}>
