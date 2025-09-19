@@ -1,8 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "constants/Colors";
 import { useAudioPlayer, useAudioPlayerStatus } from "expo-audio";
-import React, { useEffect } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Alert, Pressable, StyleSheet, View } from "react-native";
 
 type PlayerProps = {
   preset: { sound: any };
@@ -11,6 +11,7 @@ type PlayerProps = {
 };
 
 export default function Player({ preset, isPlaying, onToggle }: PlayerProps) {
+  const [audioError, setAudioError] = useState(false);
   const player = useAudioPlayer(preset.sound);
   const status = useAudioPlayerStatus(player);
 
@@ -18,37 +19,67 @@ export default function Player({ preset, isPlaying, onToggle }: PlayerProps) {
   useEffect(() => {
     if (!preset.sound) {
       console.error("Fichier audio non trouvé");
+      setAudioError(true);
       return;
     }
+    setAudioError(false);
   }, [preset.sound]);
 
   useEffect(() => {
-    if (isPlaying) {
-      player.play();
-    } else {
-      player.pause();
-      player.seekTo(0);
+    if (audioError) {
+      Alert.alert(
+        "Erreur Audio",
+        "Le fichier audio n'a pas pu être chargé. Veuillez redémarrer l'application.",
+        [{ text: "OK" }]
+      );
+      return;
     }
-  }, [isPlaying, player]);
+
+    if (isPlaying) {
+      try {
+        player.play();
+      } catch (error) {
+        console.error("Erreur lors de la lecture:", error);
+        setAudioError(true);
+      }
+    } else {
+      try {
+        player.pause();
+        player.seekTo(0);
+      } catch (error) {
+        console.error("Erreur lors de la pause:", error);
+      }
+    }
+  }, [isPlaying, player, audioError]);
 
   useEffect(() => {
-    if (status.didJustFinish && isPlaying) {
-      player.seekTo(0);
-      player.play();
+    if (status.didJustFinish && isPlaying && !audioError) {
+      try {
+        player.seekTo(0);
+        player.play();
+      } catch (error) {
+        console.error("Erreur lors de la relecture:", error);
+        setAudioError(true);
+      }
     }
-  }, [status.didJustFinish, isPlaying, player]);
+  }, [status.didJustFinish, isPlaying, player, audioError]);
 
   return (
     <View>
       <View style={styles.container}>
         <Pressable
           onPress={onToggle}
-          style={[styles.button, isPlaying && styles.playing]}
+          style={[
+            styles.button,
+            isPlaying && styles.playing,
+            audioError && styles.error,
+          ]}
+          disabled={audioError}
         >
           <Ionicons
-            name={isPlaying ? "pause" : "play"}
+            name={audioError ? "warning" : isPlaying ? "pause" : "play"}
             size={60}
-            color={COLORS.panel}
+            color={audioError ? "#ff4444" : COLORS.panel}
           />
         </Pressable>
       </View>
@@ -75,5 +106,9 @@ const styles = StyleSheet.create({
   },
   playing: {
     backgroundColor: COLORS.accent + "98",
+  },
+  error: {
+    backgroundColor: "#ff4444",
+    opacity: 0.7,
   },
 });

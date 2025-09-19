@@ -21,7 +21,12 @@
         "NSMicrophoneUsageDescription": "Cette application utilise l'audio pour la méditation et la relaxation.",
         "UIBackgroundModes": ["audio"],
         "AVAudioSessionCategory": "playback",
-        "AVAudioSessionMode": "default"
+        "AVAudioSessionMode": "default",
+        "AVAudioSessionCategoryOptions": [
+          "allowBluetooth",
+          "allowBluetoothA2DP",
+          "mixWithOthers"
+        ]
       }
     },
     "android": {
