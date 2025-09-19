@@ -15,10 +15,7 @@
     },
     "production": {
       "autoIncrement": true,
-      "channel": "production",
-      "ios": {
-        "bundleIdentifier": "com.gobelait.Vitae"
-      }
+      "channel": "production"
     }
   },
   "submit": {
