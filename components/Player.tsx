@@ -14,6 +14,14 @@ export default function Player({ preset, isPlaying, onToggle }: PlayerProps) {
   const player = useAudioPlayer(preset.sound);
   const status = useAudioPlayerStatus(player);
 
+  //debug if the sound is found
+  useEffect(() => {
+    if (!preset.sound) {
+      console.error("Fichier audio non trouvé");
+      return;
+    }
+  }, [preset.sound]);
+
   useEffect(() => {
     if (isPlaying) {
       player.play();

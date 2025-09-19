@@ -17,7 +17,11 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.gobelait.Vitae",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSMicrophoneUsageDescription": "Cette application utilise l'audio pour la méditation et la relaxation.",
+        "UIBackgroundModes": ["audio"],
+        "AVAudioSessionCategory": "playback",
+        "AVAudioSessionMode": "default"
       }
     },
     "android": {
@@ -39,11 +43,7 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": [
-      "expo-router",
-      "expo-audio",
-      "expo-font"
-    ],
+    "plugins": ["expo-router", "expo-audio", "expo-font"],
     "experiments": {
       "typedRoutes": true,
       "tsconfigPaths": true

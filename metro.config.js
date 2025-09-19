@@ -3,6 +3,11 @@ const { getDefaultConfig } = require("expo/metro-config");
 
 const config = getDefaultConfig(__dirname);
 
+// Ajouter le support des fichiers audio
+config.resolver.assetExts.push("mp3", "wav", "m4a");
+
+module.exports = config;
+
 // Évite les crashs de symbolication lorsque file === "<anonymous>" (bug Metro/overlay)
 config.symbolicator = {
   customizeFrame: (frame) => {
