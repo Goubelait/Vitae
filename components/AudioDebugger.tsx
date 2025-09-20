@@ -1,9 +1,15 @@
 import { presetStyles } from "assets/PresetStyle";
+import { useAudioPlayer, useAudioPlayerStatus } from "expo-audio";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function AudioDebugger() {
   const [debugInfo, setDebugInfo] = useState<string[]>([]);
+  const [testPlaying, setTestPlaying] = useState(false);
+
+  // Test avec le premier preset
+  const testPlayer = useAudioPlayer(presetStyles[0].sound);
+  const testStatus = useAudioPlayerStatus(testPlayer);
 
   useEffect(() => {
     const checkAudioAssets = () => {
@@ -24,11 +30,25 @@ export default function AudioDebugger() {
         }
       });
 
+      // Ajouter les infos de test audio
+      info.push(`\n🎵 Test Audio (${presetStyles[0].name}):`);
+      info.push(`   - Status: ${JSON.stringify(testStatus)}`);
+      info.push(`   - Playing: ${testPlaying}`);
+
       setDebugInfo(info);
     };
 
     checkAudioAssets();
-  }, []);
+  }, [testStatus, testPlaying]);
+
+  const toggleTest = () => {
+    if (testPlaying) {
+      testPlayer.pause();
+    } else {
+      testPlayer.play();
+    }
+    setTestPlaying(!testPlaying);
+  };
 
   return (
     <View style={styles.container}>
@@ -38,6 +58,12 @@ export default function AudioDebugger() {
           {info}
         </Text>
       ))}
+
+      <Pressable style={styles.testButton} onPress={toggleTest}>
+        <Text style={styles.testButtonText}>
+          {testPlaying ? "Arrêter Test" : "Tester Audio"}
+        </Text>
+      </Pressable>
     </View>
   );
 }
@@ -58,5 +84,16 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: "monospace",
     marginBottom: 2,
+  },
+  testButton: {
+    backgroundColor: "#007AFF",
+    padding: 10,
+    borderRadius: 8,
+    marginTop: 10,
+    alignItems: "center",
+  },
+  testButtonText: {
+    color: "white",
+    fontWeight: "bold",
   },
 });
