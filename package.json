@@ -9,6 +9,7 @@
     "web": "expo start --web",
     "check-audio": "node scripts/check-audio-assets.js",
     "verify-build": "node scripts/verify-build-assets.js",
+    "check-build": "node scripts/check-build-assets.js",
     "build:ios": "eas build --platform ios --profile production",
     "build:android": "eas build --platform android --profile production"
   },

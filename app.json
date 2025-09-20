@@ -58,6 +58,7 @@
       ],
       "expo-font"
     ],
+    "assetBundlePatterns": ["assets/sounds/*"],
     "experiments": {
       "typedRoutes": true,
       "tsconfigPaths": true

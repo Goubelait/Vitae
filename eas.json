@@ -21,6 +21,9 @@
       },
       "env": {
         "EXPO_USE_HERMES": "true"
+      },
+      "cache": {
+        "disabled": false
       }
     }
   },
