@@ -26,7 +26,7 @@ export default function Player({ preset, isPlaying, onToggle }: PlayerProps) {
           playThroughEarpieceAndroid: false,
         });
       } catch (error) {
-        console.error("Erreur configuration audio:", error);
+        // Configuration audio échouée
       }
     };
     configureAudio();
@@ -35,7 +35,6 @@ export default function Player({ preset, isPlaying, onToggle }: PlayerProps) {
   // Charger le son
   useEffect(() => {
     if (!preset.sound) {
-      console.error("Fichier audio non trouvé");
       setAudioError(true);
       return;
     }
@@ -50,7 +49,6 @@ export default function Player({ preset, isPlaying, onToggle }: PlayerProps) {
         setSound(newSound);
         setAudioError(false);
       } catch (error) {
-        console.error("Erreur chargement audio:", error);
         setAudioError(true);
       }
     };
@@ -77,7 +75,6 @@ export default function Player({ preset, isPlaying, onToggle }: PlayerProps) {
           await sound.setPositionAsync(0);
         }
       } catch (error) {
-        console.error("Erreur lecture audio:", error);
         setAudioError(true);
       }
     };

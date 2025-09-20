@@ -1,8 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { presetStyles } from "assets/PresetStyle";
 import { Preset } from "assets/Types";
-import AudioDebugger from "components/AudioDebugger";
-import AudioTestAlternative from "components/AudioTestAlternative";
 import Player from "components/Player";
 import PresetList from "components/Preset";
 import { COLORS } from "constants/Colors";
@@ -66,8 +64,8 @@ export default function PlayerScreen() {
         </View>
 
         {/* Composants de debug temporaires - à retirer après test */}
-        <AudioDebugger />
-        <AudioTestAlternative />
+        {/* <AudioDebugger />
+        <AudioTestAlternative /> */}
       </ScrollView>
     </SafeAreaView>
   );
