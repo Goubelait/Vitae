@@ -7,7 +7,7 @@ import { COLORS } from "constants/Colors";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
 import React, { useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function PlayerScreen() {
@@ -29,44 +29,38 @@ export default function PlayerScreen() {
         end={{ x: 1, y: 1 }}
         style={StyleSheet.absoluteFillObject}
       />
-      <ScrollView style={styles.body} showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <View style={styles.headerTop}>
-            <Text style={styles.title}>Vitae</Text>
+      <View style={styles.header}>
+        <View style={styles.headerTop}>
+          <Text style={styles.title}>Vitae</Text>
 
-            <Link href="/information" asChild>
-              <Pressable>
-                <Ionicons name="alert-outline" size={42} color={COLORS.text} />
-              </Pressable>
-            </Link>
-          </View>
-          <Text style={styles.subtitle}>Headphones required</Text>
+          <Link href="/information" asChild>
+            <Pressable>
+              <Ionicons name="alert-outline" size={42} color={COLORS.text} />
+            </Pressable>
+          </Link>
         </View>
+        <Text style={styles.subtitle}>Headphones required</Text>
+      </View>
 
-        <View style={styles.playerContainer}>
-          <Player
-            key={selectedPreset.id}
-            preset={selectedPreset}
-            isPlaying={isPlaying}
-            onToggle={() => setIsPlaying((v) => !v)}
+      <View style={styles.playerContainer}>
+        <Player
+          key={selectedPreset.id}
+          preset={selectedPreset}
+          isPlaying={isPlaying}
+          onToggle={() => setIsPlaying((v) => !v)}
+        />
+      </View>
+
+      <View style={styles.container}>
+        {presetStyles.map((preset) => (
+          <PresetList
+            key={preset.id}
+            preset={preset}
+            isSelected={preset.id === selectedPreset.id}
+            onPress={() => selectPreset(preset)}
           />
-        </View>
-
-        <View style={styles.container}>
-          {presetStyles.map((preset) => (
-            <PresetList
-              key={preset.id}
-              preset={preset}
-              isSelected={preset.id === selectedPreset.id}
-              onPress={() => selectPreset(preset)}
-            />
-          ))}
-        </View>
-
-        {/* Composants de debug temporaires - à retirer après test */}
-        {/* <AudioDebugger />
-        <AudioTestAlternative /> */}
-      </ScrollView>
+        ))}
+      </View>
     </SafeAreaView>
   );
 }
@@ -84,6 +78,7 @@ const styles = StyleSheet.create({
   },
   header: {
     margin: 12,
+    marginTop: 24,
     paddingHorizontal: 16,
     paddingVertical: 16,
   },
