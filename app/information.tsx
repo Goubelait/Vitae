@@ -3,6 +3,7 @@ import { Link } from "expo-router";
 import React from "react";
 import { Pressable, StyleSheet } from "react-native";
 
+import InfoCard from "components/InfoCard";
 import { COLORS } from "constants/Colors";
 import { LinearGradient } from "expo-linear-gradient";
 import { Text, View } from "react-native";
@@ -10,7 +11,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SettingsScreen() {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: "transparent" }}
+      edges={["top", "left", "right"]}
+    >
       <LinearGradient
         colors={["#0D1F23", "#132E35", "#0D1F23"]}
         start={{ x: 0, y: 0 }}
@@ -35,51 +39,35 @@ export default function SettingsScreen() {
         <View style={styles.right} />
       </View>
       <View style={styles.body}>
-        <View style={styles.content}>
-          <Text style={styles.contentTitle}>🎧 What are binaural beats ?</Text>
-          <Text style={styles.contentText}>
-            When two slightly different tones are played in each ear, the brain
-            perceives a third tone — the difference between the two frequencies.
-            This is called a binaural beat.
-          </Text>
-        </View>
-        <View style={styles.content}>
-          <Text style={styles.contentTitle}>
-            🌙 Delta (1 Hz) → Sommeil profond
-          </Text>
-          <Text style={styles.contentText}>
-            Binaural beats in the delta range are linked to deeper, restorative
-            sleep
-          </Text>
-          <Text style={styles.contentText}>
-            📖 Jirakittayakorn & Wongsawat, 2017
-          </Text>
-        </View>
-        <View style={styles.content}>
-          <Text style={styles.contentTitle}>🌊 Theta (8 Hz) → Relaxation</Text>
-          <Text style={styles.contentText}>
-            Theta frequencies are associated with relaxation, reduced stress,
-            and meditative states.
-          </Text>
-          <Text style={styles.contentText}>📖 Padmanabhan et al., 2005</Text>
-        </View>
-        <View style={styles.content}>
-          <Text style={styles.contentTitle}>🌅 Beta (20 Hz) → Créativité</Text>
-          <Text style={styles.contentText}>
-            Beta rhythms are known to promote creativity and calm alertness.
-          </Text>
-          <Text style={styles.contentText}>📖 Kennerly, 1994</Text>
-        </View>
-        <View style={styles.content}>
-          <Text style={styles.contentTitle}>
-            ⚡ Gamma (40 Hz) → Concentration
-          </Text>
-          <Text style={styles.contentText}>
-            Listening to gamma beats can improve alertness, attention, and task
-            performance
-          </Text>
-          <Text style={styles.contentText}>📖 Lane et al., 1998</Text>
-        </View>
+        <InfoCard
+          icon="🎧"
+          title="What are binaural beats?"
+          subtitle="Two slightly different tones played in each ear create a perceived third tone — the binaural beat."
+        />
+        <InfoCard
+          icon="🌙"
+          title="Delta (1 Hz) → Sleep"
+          subtitle="Delta beats are linked to deeper, restorative and slow-wave sleep."
+          reference="Jirakittayakorn & Wongsawat, 2017"
+        />
+        <InfoCard
+          icon="🌊"
+          title="Theta (8 Hz) → Relaxation"
+          subtitle="Theta rhythms are tied to relaxation, stress relief, and meditative states."
+          reference="Padmanabhan et al., 2005"
+        />
+        <InfoCard
+          icon="🌅"
+          title="Beta (20 Hz) → Creativity"
+          subtitle="Beta activity promotes creativity, mental focus, and calm alertness."
+          reference="Kennerly, 1994"
+        />
+        <InfoCard
+          icon="⚡"
+          title="Gamma (40 Hz) → Focus"
+          subtitle="Gamma beats improve alertness, sustained attention, and task performance."
+          reference="Lane et al., 1998"
+        />
       </View>
     </SafeAreaView>
   );
@@ -111,42 +99,15 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   body: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 4,
-    marginBottom: 12,
+    alignItems: "stretch",
+    justifyContent: "flex-start",
     paddingHorizontal: 12,
-    gap: 12,
+    gap: 14,
   },
-  content: {
-    minHeight: 100, // instead of fixed 150
-    width: "100%",
-    borderRadius: 16, // slightly smaller
-    backgroundColor: COLORS.panel,
-    borderColor: COLORS.border,
-    borderWidth: 1,
-    padding: 12, // more compact
-    shadowColor: "#000",
-    shadowOpacity: 0.15,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 },
-    gap: 2,
-  },
-  contentTitle: {
-    fontFamily: "Inter_700Bold",
-    fontSize: 14, // smaller
-    fontWeight: "700",
-    color: COLORS.text,
-    marginBottom: 2,
-  },
-  contentText: {
-    fontFamily: "Inter_400Regular",
-    fontSize: 12, // smaller
-    color: COLORS.subtext,
-  },
+
   title: {
     fontFamily: "Inter_700Bold",
-    fontSize: 24, // smaller header
+    fontSize: 26,
     fontWeight: "800",
     color: COLORS.text,
     textAlign: "center",

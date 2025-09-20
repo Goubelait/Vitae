@@ -25,9 +25,7 @@ export default function Player({ preset, isPlaying, onToggle }: PlayerProps) {
           shouldDuckAndroid: true,
           playThroughEarpieceAndroid: false,
         });
-      } catch (error) {
-        // Configuration audio échouée
-      }
+      } catch (error) {}
     };
     configureAudio();
   }, []);

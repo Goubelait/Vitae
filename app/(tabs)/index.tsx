@@ -18,7 +18,7 @@ export default function PlayerScreen() {
     setIsPlaying(false);
     setTimeout(() => {
       setSelectedPreset(preset);
-    }, 200);
+    }, 100);
   };
 
   return (
