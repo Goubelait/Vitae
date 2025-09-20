@@ -1,22 +1,50 @@
-import { useAudioPlayer, useAudioPlayerStatus } from "expo-audio";
-import React, { useState } from "react";
+import { Audio } from "expo-av";
+import React, { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-// Test avec des chemins absolus
+// Test avec expo-av
 const testSound = require("assets/sounds/sleep.mp3");
 
 export default function AudioTestAlternative() {
   const [isPlaying, setIsPlaying] = useState(false);
-  const player = useAudioPlayer(testSound);
-  const status = useAudioPlayerStatus(player);
+  const [sound, setSound] = useState<Audio.Sound | null>(null);
+  const [status, setStatus] = useState<any>({});
 
-  const togglePlay = () => {
-    if (isPlaying) {
-      player.pause();
-    } else {
-      player.play();
+  useEffect(() => {
+    loadSound();
+    return () => {
+      if (sound) {
+        sound.unloadAsync();
+      }
+    };
+  }, []);
+
+  const loadSound = async () => {
+    try {
+      const { sound: newSound } = await Audio.Sound.createAsync(testSound);
+      setSound(newSound);
+
+      newSound.setOnPlaybackStatusUpdate((status) => {
+        setStatus(status);
+      });
+    } catch (error) {
+      console.error("Erreur chargement audio:", error);
     }
-    setIsPlaying(!isPlaying);
+  };
+
+  const togglePlay = async () => {
+    if (!sound) return;
+
+    try {
+      if (isPlaying) {
+        await sound.pauseAsync();
+      } else {
+        await sound.playAsync();
+      }
+      setIsPlaying(!isPlaying);
+    } catch (error) {
+      console.error("Erreur lecture audio:", error);
+    }
   };
 
   return (

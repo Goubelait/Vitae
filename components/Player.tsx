@@ -1,8 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "constants/Colors";
-import { useAudioPlayer, useAudioPlayerStatus } from "expo-audio";
+import { Audio } from "expo-av";
 import React, { useEffect, useState } from "react";
-import { Alert, Pressable, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 
 type PlayerProps = {
   preset: { sound: any };
@@ -12,59 +12,92 @@ type PlayerProps = {
 
 export default function Player({ preset, isPlaying, onToggle }: PlayerProps) {
   const [audioError, setAudioError] = useState(false);
-  const player = useAudioPlayer(preset.sound);
-  const status = useAudioPlayerStatus(player);
+  const [sound, setSound] = useState<Audio.Sound | null>(null);
 
-  // Configuration audio - setAudioModeAsync n'existe pas dans expo-audio
+  // Configuration audio
+  useEffect(() => {
+    const configureAudio = async () => {
+      try {
+        await Audio.setAudioModeAsync({
+          allowsRecordingIOS: false,
+          staysActiveInBackground: true,
+          playsInSilentModeIOS: true,
+          shouldDuckAndroid: true,
+          playThroughEarpieceAndroid: false,
+        });
+      } catch (error) {
+        console.error("Erreur configuration audio:", error);
+      }
+    };
+    configureAudio();
+  }, []);
 
-  //debug if the sound is found
+  // Charger le son
   useEffect(() => {
     if (!preset.sound) {
       console.error("Fichier audio non trouvé");
       setAudioError(true);
       return;
     }
-    setAudioError(false);
+
+    const loadSound = async () => {
+      try {
+        if (sound) {
+          await sound.unloadAsync();
+        }
+
+        const { sound: newSound } = await Audio.Sound.createAsync(preset.sound);
+        setSound(newSound);
+        setAudioError(false);
+      } catch (error) {
+        console.error("Erreur chargement audio:", error);
+        setAudioError(true);
+      }
+    };
+
+    loadSound();
+
+    return () => {
+      if (sound) {
+        sound.unloadAsync();
+      }
+    };
   }, [preset.sound]);
 
+  // Contrôler la lecture
   useEffect(() => {
-    if (audioError) {
-      Alert.alert(
-        "Erreur Audio",
-        "Le fichier audio n'a pas pu être chargé. Veuillez redémarrer l'application.",
-        [{ text: "OK" }]
-      );
-      return;
-    }
+    if (!sound || audioError) return;
 
-    if (isPlaying) {
+    const playSound = async () => {
       try {
-        player.play();
+        if (isPlaying) {
+          await sound.playAsync();
+        } else {
+          await sound.pauseAsync();
+          await sound.setPositionAsync(0);
+        }
       } catch (error) {
-        console.error("Erreur lors de la lecture:", error);
+        console.error("Erreur lecture audio:", error);
         setAudioError(true);
       }
-    } else {
-      try {
-        player.pause();
-        player.seekTo(0);
-      } catch (error) {
-        console.error("Erreur lors de la pause:", error);
-      }
-    }
-  }, [isPlaying, player, audioError]);
+    };
 
+    playSound();
+  }, [isPlaying, sound, audioError]);
+
+  // Gestion de la fin de lecture
   useEffect(() => {
-    if (status.didJustFinish && isPlaying && !audioError) {
-      try {
-        player.seekTo(0);
-        player.play();
-      } catch (error) {
-        console.error("Erreur lors de la relecture:", error);
-        setAudioError(true);
+    if (!sound) return;
+
+    const onPlaybackStatusUpdate = (status: any) => {
+      if (status.didJustFinish && isPlaying) {
+        sound.setPositionAsync(0);
+        sound.playAsync();
       }
-    }
-  }, [status.didJustFinish, isPlaying, player, audioError]);
+    };
+
+    sound.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
+  }, [sound, isPlaying]);
 
   return (
     <View>
