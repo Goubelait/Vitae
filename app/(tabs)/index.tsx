@@ -1,13 +1,14 @@
 import { Ionicons } from "@expo/vector-icons";
 import { presetStyles } from "assets/PresetStyle";
 import { Preset } from "assets/Types";
+import AudioDebugger from "components/AudioDebugger";
 import Player from "components/Player";
 import PresetList from "components/Preset";
 import { COLORS } from "constants/Colors";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
 import React, { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function PlayerScreen() {
@@ -29,7 +30,7 @@ export default function PlayerScreen() {
         end={{ x: 1, y: 1 }}
         style={StyleSheet.absoluteFillObject}
       />
-      <View style={styles.body}>
+      <ScrollView style={styles.body} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <View style={styles.headerTop}>
             <Text style={styles.title}>Vitae</Text>
@@ -62,7 +63,10 @@ export default function PlayerScreen() {
             />
           ))}
         </View>
-      </View>
+
+        {/* Composant de debug temporaire - à retirer après test */}
+        <AudioDebugger />
+      </ScrollView>
     </SafeAreaView>
   );
 }

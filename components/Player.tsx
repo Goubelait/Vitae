@@ -15,6 +15,8 @@ export default function Player({ preset, isPlaying, onToggle }: PlayerProps) {
   const player = useAudioPlayer(preset.sound);
   const status = useAudioPlayerStatus(player);
 
+  // Configuration audio - setAudioModeAsync n'existe pas dans expo-audio
+
   //debug if the sound is found
   useEffect(() => {
     if (!preset.sound) {

@@ -18,6 +18,9 @@
       "channel": "production",
       "ios": {
         "buildConfiguration": "Release"
+      },
+      "env": {
+        "EXPO_USE_HERMES": "true"
       }
     }
   },
