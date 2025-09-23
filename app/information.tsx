@@ -13,7 +13,7 @@ export default function SettingsScreen() {
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: "transparent" }}
-      edges={["top", "left", "right"]}
+      edges={["top", "left", "right", "bottom"]}
     >
       <LinearGradient
         colors={["#0D1F23", "#132E35", "#0D1F23"]}
@@ -39,35 +39,60 @@ export default function SettingsScreen() {
         <View style={styles.right} />
       </View>
       <View style={styles.body}>
-        <InfoCard
-          icon="🎧"
-          title="What are binaural beats?"
-          subtitle="Two slightly different tones played in each ear create a perceived third tone — the binaural beat."
-        />
-        <InfoCard
-          icon="🌙"
-          title="Delta (1 Hz) → Sleep"
-          subtitle="Delta beats are linked to deeper, restorative and slow-wave sleep."
-          reference="Jirakittayakorn & Wongsawat, 2017"
-        />
-        <InfoCard
-          icon="🌊"
-          title="Theta (8 Hz) → Relaxation"
-          subtitle="Theta rhythms are tied to relaxation, stress relief, and meditative states."
-          reference="Padmanabhan et al., 2005"
-        />
-        <InfoCard
-          icon="🌅"
-          title="Beta (20 Hz) → Creativity"
-          subtitle="Beta activity promotes creativity, mental focus, and calm alertness."
-          reference="Kennerly, 1994"
-        />
-        <InfoCard
-          icon="⚡"
-          title="Gamma (40 Hz) → Focus"
-          subtitle="Gamma beats improve alertness, sustained attention, and task performance."
-          reference="Lane et al., 1998"
-        />
+        <View style={styles.row}>
+          <View style={styles.cell}>
+            <InfoCard
+              icon="ℹ️"
+              title="Note on brainwaves"
+              subtitle="The terms Delta, Theta, Beta and Gamma refer to commonly used brainwave bands."
+            />
+          </View>
+          <View style={styles.cell}>
+            <InfoCard
+              icon="🎧"
+              title="What are binaural beats?"
+              subtitle="Two slightly different tones played in each ear create a perceived third tone — the binaural beat."
+            />
+          </View>
+        </View>
+
+        <View style={styles.row}>
+          <View style={styles.cell}>
+            <InfoCard
+              icon="🧠"
+              title="Delta (1 Hz) → Sleep"
+              subtitle="Delta beats are linked to deeper, restorative and slow-wave sleep."
+              reference="Jirakittayakorn & Wongsawat, 2017"
+            />
+          </View>
+          <View style={styles.cell}>
+            <InfoCard
+              icon="🧠"
+              title="Theta (8 Hz) → Relaxation"
+              subtitle="Theta rhythms are tied to relaxation, stress relief, and meditative states."
+              reference="Padmanabhan et al., 2005"
+            />
+          </View>
+        </View>
+
+        <View style={styles.row}>
+          <View style={styles.cell}>
+            <InfoCard
+              icon="🧠"
+              title="Bêta (20 Hz) → Creativity"
+              subtitle="Beta activity promotes creativity, mental focus, and calm alertness."
+              reference="Kennerly, 1994"
+            />
+          </View>
+          <View style={styles.cell}>
+            <InfoCard
+              icon="🧠"
+              title="Gamma (40 Hz) → Focus"
+              subtitle="Gamma beats improve alertness, sustained attention, and task performance."
+              reference="Lane et al., 1998"
+            />
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -99,10 +124,26 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   body: {
+    flex: 1,
     alignItems: "stretch",
     justifyContent: "flex-start",
     paddingHorizontal: 12,
-    gap: 14,
+    paddingTop: 12,
+    paddingBottom: 20,
+    gap: 12,
+  },
+  row: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "stretch",
+    minHeight: 0,
+    gap: 12,
+  },
+  cell: {
+    flex: 1,
+    alignSelf: "stretch",
+    height: "100%",
   },
 
   title: {
