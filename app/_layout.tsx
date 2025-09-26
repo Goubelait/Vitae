@@ -1,16 +1,16 @@
 import { Inter_400Regular, Inter_700Bold } from "@expo-google-fonts/inter";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { SoundProvider } from "components/SoundContext";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
-import "../_lib/reanimated-logger-config";
-
 import {
   configureReanimatedLogger,
   ReanimatedLogLevel,
 } from "react-native-reanimated";
+import "../_lib/reanimated-logger-config";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -55,9 +55,11 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="information" options={{ headerShown: false }} />
-    </Stack>
+    <SoundProvider>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="information" options={{ headerShown: false }} />
+      </Stack>
+    </SoundProvider>
   );
 }

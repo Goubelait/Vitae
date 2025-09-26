@@ -1,25 +1,17 @@
 import { Ionicons } from "@expo/vector-icons";
 import { presetStyles } from "assets/PresetStyle";
-import { Preset } from "assets/Types";
 import Player from "components/Player";
 import PresetList from "components/Preset";
+import { useSound } from "components/SoundContext";
 import { COLORS } from "constants/Colors";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
-import React, { useState } from "react";
+import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function PlayerScreen() {
-  const [selectedPreset, setSelectedPreset] = useState(presetStyles[0]);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const selectPreset = (preset: Preset) => {
-    setIsPlaying(false);
-    setTimeout(() => {
-      setSelectedPreset(preset);
-    }, 100);
-  };
+  const { currentPreset, isPlaying, playPreset, togglePlay } = useSound();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
@@ -32,7 +24,6 @@ export default function PlayerScreen() {
       <View style={styles.header}>
         <View style={styles.headerTop}>
           <Text style={styles.title}>Vitae</Text>
-
           <Link href="/information" asChild>
             <Pressable>
               <Ionicons name="alert-outline" size={42} color={COLORS.text} />
@@ -43,12 +34,13 @@ export default function PlayerScreen() {
       </View>
 
       <View style={styles.playerContainer}>
-        <Player
-          key={selectedPreset.id}
-          preset={selectedPreset}
-          isPlaying={isPlaying}
-          onToggle={() => setIsPlaying((v) => !v)}
-        />
+        {currentPreset && (
+          <Player
+            preset={currentPreset}
+            isPlaying={isPlaying}
+            onToggle={togglePlay}
+          />
+        )}
       </View>
 
       <View style={styles.container}>
@@ -56,8 +48,8 @@ export default function PlayerScreen() {
           <PresetList
             key={preset.id}
             preset={preset}
-            isSelected={preset.id === selectedPreset.id}
-            onPress={() => selectPreset(preset)}
+            isSelected={currentPreset?.id === preset.id}
+            onPress={() => playPreset(preset)}
           />
         ))}
       </View>
