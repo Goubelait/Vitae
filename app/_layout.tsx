@@ -1,5 +1,6 @@
 import { Inter_400Regular, Inter_700Bold } from "@expo-google-fonts/inter";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { AdsProvider } from "components/AdsContext";
 import { SoundProvider } from "components/SoundContext";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
@@ -55,11 +56,13 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   return (
-    <SoundProvider>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="information" options={{ headerShown: false }} />
-      </Stack>
-    </SoundProvider>
+    <AdsProvider>
+      <SoundProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="information" options={{ headerShown: false }} />
+        </Stack>
+      </SoundProvider>
+    </AdsProvider>
   );
 }

@@ -1,9 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
 import { presetStyles } from "assets/PresetStyle";
+import { useAds } from "components/AdsContext";
 import Player from "components/Player";
 import PresetList from "components/Preset";
 import { useSound } from "components/SoundContext";
 import { COLORS } from "constants/Colors";
+import { AdMobBanner } from "expo-ads-admob";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
 import React from "react";
@@ -12,6 +14,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function PlayerScreen() {
   const { currentPreset, isPlaying, playPreset, togglePlay } = useSound();
+  const { adsRemoved, buyRemoveAds } = useAds();
+  const Banner = AdMobBanner as unknown as React.ComponentType<any>;
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
@@ -53,6 +57,27 @@ export default function PlayerScreen() {
           />
         ))}
       </View>
+      {!adsRemoved && (
+        <View style={{ alignItems: "center", marginBottom: 10 }}>
+          <AdMobBanner
+            bannerSize="smartBannerPortrait"
+            adUnitID="ca-app-pub-xxxxxxxxxxxxx/xxxxxxxxxxx"
+            servePersonalizedAds
+            onDidFailToReceiveAdWithError={(err) => console.log(err)}
+          />
+          <Pressable
+            onPress={buyRemoveAds}
+            style={{
+              marginTop: 8,
+              padding: 8,
+              backgroundColor: "#222",
+              borderRadius: 12,
+            }}
+          >
+            <Text style={{ color: "white" }}>✨ Supprimer les pubs</Text>
+          </Pressable>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
