@@ -1,6 +1,13 @@
 // contexts/AdsContext.tsx
-import * as InAppPurchases from "expo-in-app-purchases";
 import React, { createContext, useContext, useEffect, useState } from "react";
+
+// Import conditionnel pour éviter l'erreur en développement
+let InAppPurchases: any = null;
+try {
+  InAppPurchases = require("expo-in-app-purchases");
+} catch (error) {
+  console.log("expo-in-app-purchases not available in development");
+}
 
 type AdsContextType = {
   adsRemoved: boolean;
@@ -17,28 +24,45 @@ export const AdsProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const init = async () => {
-      await InAppPurchases.connectAsync();
+      if (!InAppPurchases) {
+        console.log("InAppPurchases not available, skipping initialization");
+        return;
+      }
 
-      // Vérifie si déjà acheté
-      const { responseCode, results } =
-        await InAppPurchases.getPurchaseHistoryAsync();
-      if (
-        responseCode === InAppPurchases.IAPResponseCode.OK &&
-        results?.some((p) => p.productId === REMOVE_ADS_ID)
-      ) {
-        setAdsRemoved(true);
+      try {
+        await InAppPurchases.connectAsync();
+
+        // Vérifie si déjà acheté
+        const { responseCode, results } =
+          await InAppPurchases.getPurchaseHistoryAsync();
+        if (
+          responseCode === InAppPurchases.IAPResponseCode.OK &&
+          results?.some((p: any) => p.productId === REMOVE_ADS_ID)
+        ) {
+          setAdsRemoved(true);
+        }
+      } catch (error) {
+        console.log("InAppPurchases initialization error:", error);
       }
     };
 
     init();
 
     return () => {
-      InAppPurchases.disconnectAsync();
+      if (InAppPurchases) {
+        InAppPurchases.disconnectAsync();
+      }
     };
   }, []);
 
   // Acheter
   const buyRemoveAds = async () => {
+    if (!InAppPurchases) {
+      console.log("InAppPurchases not available, simulating purchase");
+      setAdsRemoved(true);
+      return;
+    }
+
     try {
       await InAppPurchases.purchaseItemAsync(REMOVE_ADS_ID);
       setAdsRemoved(true);
