@@ -17,7 +17,6 @@
     "@react-native-community/slider": "^5.0.1",
     "@react-navigation/native": "^7.1.8",
     "expo": "~54.0.10",
-    "expo-ads-admob": "^13.0.0",
     "expo-audio": "~1.0.13",
     "expo-av": "^16.0.7",
     "expo-constants": "~18.0.9",
