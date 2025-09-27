@@ -32,7 +32,7 @@ export default function PlayerScreen() {
   const adUnitId =
     __DEV__ && TestIds
       ? TestIds.BANNER
-      : "ca-app-pub-7483950421454182~3017038089";
+      : "ca-app-pub-7483950421454182/5588851792";
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
