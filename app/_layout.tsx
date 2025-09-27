@@ -12,6 +12,13 @@ import {
   ReanimatedLogLevel,
 } from "react-native-reanimated";
 import "../_lib/reanimated-logger-config";
+// Import conditionnel pour éviter l'erreur en développement
+let mobileAds: any = null;
+try {
+  mobileAds = require("react-native-google-mobile-ads").default;
+} catch (error) {
+  console.log("react-native-google-mobile-ads not available in development");
+}
 
 export { ErrorBoundary } from "expo-router";
 
@@ -45,6 +52,17 @@ export default function RootLayout() {
         strict: false,
       });
     } catch {}
+  }, []);
+
+  useEffect(() => {
+    if (mobileAds) {
+      try {
+        mobileAds().initialize();
+        console.log("Google Mobile Ads initialized successfully");
+      } catch (error) {
+        console.log("Failed to initialize Google Mobile Ads:", error);
+      }
+    }
   }, []);
 
   if (!loaded) {
