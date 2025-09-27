@@ -26,7 +26,8 @@
           "allowBluetooth",
           "allowBluetoothA2DP",
           "mixWithOthers"
-        ]
+        ],
+        "GADApplicationIdentifier": "ca-app-pub-7483950421454182~3017038089"
       }
     },
     "android": {
