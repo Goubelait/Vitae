@@ -56,7 +56,12 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (mobileAds) {
-      mobileAds().initialize();
+      try {
+        mobileAds().initialize();
+        console.log("Google Mobile Ads initialized successfully");
+      } catch (error) {
+        console.log("Failed to initialize Google Mobile Ads:", error);
+      }
     }
   }, []);
 

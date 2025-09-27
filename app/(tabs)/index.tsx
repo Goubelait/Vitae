@@ -87,6 +87,7 @@ export default function PlayerScreen() {
               unitId={adUnitId}
               size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
               onAdFailedToLoad={(err: any) => console.log("Ad error:", err)}
+              onAdLoaded={() => console.log("Ad loaded successfully")}
             />
           ) : (
             <View
