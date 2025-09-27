@@ -6,13 +6,14 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import GoogleMobileAds, { AdapterStatus } from "react-native-google-mobile-ads";
 import "react-native-reanimated";
 import {
   configureReanimatedLogger,
   ReanimatedLogLevel,
 } from "react-native-reanimated";
 import "../_lib/reanimated-logger-config";
-// Import conditionnel pour éviter l'erreur en développement
+
 let mobileAds: any = null;
 try {
   mobileAds = require("react-native-google-mobile-ads").default;
@@ -55,14 +56,14 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    if (mobileAds) {
-      try {
-        mobileAds().initialize();
-        console.log("Google Mobile Ads initialized successfully");
-      } catch (error) {
-        console.log("Failed to initialize Google Mobile Ads:", error);
-      }
-    }
+    GoogleMobileAds()
+      .initialize()
+      .then((adapterStatuses: AdapterStatus[]) => {
+        console.log("✅ Google Mobile Ads initialized", adapterStatuses);
+      })
+      .catch((err: Error) => {
+        console.error("❌ Failed to init Ads:", err);
+      });
   }, []);
 
   if (!loaded) {
