@@ -29,10 +29,7 @@ export default function PlayerScreen() {
   const { adsRemoved, buyRemoveAds } = useAds();
 
   // Utilise TestIds.BANNER en développement, ton vrai ID en production
-  const adUnitId =
-    __DEV__ && TestIds
-      ? TestIds.BANNER
-      : "ca-app-pub-7483950421454182/5588851792";
+  const adUnitId = TestIds.BANNER;
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
