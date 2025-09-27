@@ -1,12 +1,11 @@
 import { Inter_400Regular, Inter_700Bold } from "@expo-google-fonts/inter";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { AdsProvider } from "components/AdsContext";
+import { ADS_ENABLED, AdsProvider } from "components/AdsContext";
 import { SoundProvider } from "components/SoundContext";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import GoogleMobileAds, { AdapterStatus } from "react-native-google-mobile-ads";
 import "react-native-reanimated";
 import {
   configureReanimatedLogger,
@@ -20,7 +19,6 @@ try {
 } catch (error) {
   console.log("react-native-google-mobile-ads not available in development");
 }
-
 export { ErrorBoundary } from "expo-router";
 
 export const unstable_settings = {
@@ -56,14 +54,20 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    GoogleMobileAds()
-      .initialize()
-      .then((adapterStatuses: AdapterStatus[]) => {
-        console.log("✅ Google Mobile Ads initialized", adapterStatuses);
-      })
-      .catch((err: Error) => {
-        console.error("❌ Failed to init Ads:", err);
-      });
+    if (!ADS_ENABLED) {
+      console.log("🚫 Ads disabled: skip init");
+      return;
+    }
+
+    try {
+      const mobileAds = require("react-native-google-mobile-ads").default;
+      mobileAds()
+        .initialize()
+        .then(() => console.log("✅ Google Mobile Ads initialized"))
+        .catch((e: any) => console.log("❌ Ads init error:", e));
+    } catch {
+      console.log("🚫 Google Mobile Ads not available in this build");
+    }
   }, []);
 
   if (!loaded) {
@@ -75,13 +79,13 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   return (
-    <AdsProvider>
-      <SoundProvider>
+    <SoundProvider>
+      <AdsProvider>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="information" options={{ headerShown: false }} />
         </Stack>
-      </SoundProvider>
-    </AdsProvider>
+      </AdsProvider>
+    </SoundProvider>
   );
 }

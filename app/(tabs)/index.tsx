@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { presetStyles } from "assets/PresetStyle";
-import { useAds } from "components/AdsContext";
+import { ADS_ENABLED, useAds } from "components/AdsContext";
 import Player from "components/Player";
 import PresetList from "components/Preset";
 import { useSound } from "components/SoundContext";
@@ -20,8 +20,8 @@ try {
   BannerAd = adsModule.BannerAd;
   BannerAdSize = adsModule.BannerAdSize;
   TestIds = adsModule.TestIds;
-} catch (error) {
-  console.log("react-native-google-mobile-ads not available in development");
+} catch {
+  console.log("🚫 Ads module not available (Expo Go or ADS disabled)");
 }
 
 export default function PlayerScreen() {
@@ -29,9 +29,12 @@ export default function PlayerScreen() {
   const { adsRemoved, buyRemoveAds } = useAds();
 
   // Utilise TestIds.BANNER en développement, ton vrai ID en production
-  const adUnitId = __DEV__
-    ? TestIds.BANNER
-    : "ca-app-pub-7483950421454182/5588851792";
+  let adUnitId: string | null = null;
+  if (ADS_ENABLED && TestIds) {
+    adUnitId = __DEV__
+      ? TestIds.BANNER
+      : "ca-app-pub-7483950421454182/5588851792";
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
@@ -79,34 +82,14 @@ export default function PlayerScreen() {
       </View>
 
       {/* Bannière fixée en bas */}
-      {!adsRemoved && (
+      {ADS_ENABLED && !adsRemoved && BannerAd && BannerAdSize && (
         <View style={styles.adContainer}>
-          {BannerAd && BannerAdSize ? (
-            <BannerAd
-              unitId={adUnitId}
-              size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-              onAdFailedToLoad={(err: any) => console.log("Ad error:", err)}
-              onAdLoaded={() => console.log("Ad loaded successfully")}
-            />
-          ) : (
-            <View
-              style={{
-                width: 320,
-                height: 50,
-                backgroundColor: "#1a1a1a",
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                marginBottom: 8,
-                borderWidth: 1,
-                borderColor: "#333",
-              }}
-            >
-              <Text style={{ color: "#888", fontSize: 12 }}>
-                📱 Ad placeholder (dev mode)
-              </Text>
-            </View>
-          )}
+          <BannerAd
+            unitId={adUnitId}
+            size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+            onAdFailedToLoad={(err: any) => console.log("Ad error:", err)}
+            onAdLoaded={() => console.log("Ad loaded successfully")}
+          />
           <Pressable
             onPress={buyRemoveAds}
             style={{

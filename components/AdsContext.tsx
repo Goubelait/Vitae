@@ -1,6 +1,8 @@
 // contexts/AdsContext.tsx
 import React, { createContext, useContext, useEffect, useState } from "react";
 
+// 🚨 Mettre à false pour désactiver toutes les pubs (mode "pause")
+export const ADS_ENABLED = false;
 // Import conditionnel pour éviter l'erreur en développement
 let InAppPurchases: any = null;
 try {
