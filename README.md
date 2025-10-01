@@ -3,7 +3,7 @@
 > **Dors mieux. Concentre-toi plus. Relax. Crée.**  
 > Vitae est l’application minimaliste qui utilise les **ondes binaurales** pour transformer ton quotidien.  
 
-![Vitae App Preview](./assets/images/screenshot.png)  
+<img src="./assets/images/screenshot.png" width="200">
 
 ---
 
