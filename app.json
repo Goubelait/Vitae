@@ -19,7 +19,9 @@
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
         "NSMicrophoneUsageDescription": "Cette application utilise l'audio pour la méditation et la relaxation.",
-        "UIBackgroundModes": ["audio"],
+        "UIBackgroundModes": [
+          "audio"
+        ],
         "AVAudioSessionCategory": "playback",
         "AVAudioSessionMode": "default",
         "AVAudioSessionCategoryOptions": [
@@ -56,9 +58,12 @@
           "microphonePermission": "Cette application utilise l'audio pour la méditation et la relaxation."
         }
       ],
-      "expo-font"
+      "expo-font",
+      "expo-web-browser"
     ],
-    "assetBundlePatterns": ["assets/sounds/*"],
+    "assetBundlePatterns": [
+      "assets/sounds/*"
+    ],
     "experiments": {
       "typedRoutes": true,
       "tsconfigPaths": true
