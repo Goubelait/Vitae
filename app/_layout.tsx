@@ -1,7 +1,6 @@
 import { Inter_400Regular, Inter_700Bold } from "@expo-google-fonts/inter";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { SoundProvider } from "components/SoundContext";
-import { Audio, InterruptionModeIOS } from "expo-av";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -27,21 +26,6 @@ export default function RootLayout() {
     Inter_700Bold,
     ...FontAwesome.font,
   });
-
-  useEffect(() => {
-    (async () => {
-      try {
-        await Audio.setAudioModeAsync({
-          staysActiveInBackground: true,
-          allowsRecordingIOS: false,
-          playsInSilentModeIOS: true,
-          interruptionModeIOS: InterruptionModeIOS.DoNotMix,
-        });
-      } catch (e) {
-        console.warn("Failed to set audio mode:", e);
-      }
-    })();
-  }, []);
 
   useEffect(() => {
     if (error) throw error;
