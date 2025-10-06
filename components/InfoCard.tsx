@@ -1,4 +1,5 @@
 import { COLORS } from "constants/Colors";
+import { BlurView } from "expo-blur";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -16,11 +17,13 @@ export default function InfoCard({
   reference,
 }: InfoCardProps) {
   return (
-    <View style={styles.card}>
-      <Text style={styles.icon}>{icon}</Text>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.subtitle}>{subtitle}</Text>
-      {reference && <Text style={styles.reference}>📖 {reference}</Text>}
+    <View>
+      <BlurView intensity={5} tint="light" style={styles.card}>
+        <Text style={styles.icon}>{icon}</Text>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subtitle}>{subtitle}</Text>
+        {reference && <Text style={styles.reference}>📖 {reference}</Text>}
+      </BlurView>
     </View>
   );
 }
@@ -36,6 +39,7 @@ const styles = StyleSheet.create({
     padding: 14,
     gap: 6,
     justifyContent: "space-between",
+    overflow: "hidden",
 
     shadowColor: "#000",
     shadowOpacity: 0.08,
