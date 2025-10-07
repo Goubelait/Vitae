@@ -114,6 +114,9 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 20,
     gap: 12,
+    width: "100%",
+    maxWidth: 420,
+    alignSelf: "center",
   },
 
   title: {

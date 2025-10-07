@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     marginHorizontal: 0,
     borderRadius: 24,
-    backgroundColor: COLORS.panel,
+    backgroundColor: COLORS.panel + "AA",
     borderColor: COLORS.border,
     borderWidth: 2,
     justifyContent: "flex-end",
