@@ -25,8 +25,8 @@ export default function PlayerScreen() {
         <View style={styles.headerTop}>
           <Text style={styles.title}>Vitae</Text>
           <Link href="/information" asChild>
-            <Pressable>
-              <Ionicons name="alert-outline" size={42} color={COLORS.text} />
+            <Pressable style={styles.infoButton}>
+              <Ionicons name="alert-outline" size={30} color={COLORS.text} />
             </Pressable>
           </Link>
         </View>
@@ -73,6 +73,13 @@ const styles = StyleSheet.create({
     marginTop: 24,
     paddingHorizontal: 16,
     paddingVertical: 16,
+  },
+  infoButton: {
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: 999,
+    padding: 8,
+    backgroundColor: COLORS.panel + "AA",
   },
   playerContainer: {
     alignItems: "center",
