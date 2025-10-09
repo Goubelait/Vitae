@@ -9,6 +9,9 @@ import { Link } from "expo-router";
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Inter_400Regular, Inter_700Bold } from "@expo-google-fonts/inter";
+import HiddenTestButton from "components/TextButton";
+
 
 export default function PlayerScreen() {
   const { currentPreset, isPlaying, playPreset, togglePlay } = useSound();
@@ -52,6 +55,9 @@ export default function PlayerScreen() {
             onPress={() => playPreset(preset)}
           />
         ))}
+      </View>
+      <View style={{ alignItems: "center", marginBottom: 20 }}>
+        <HiddenTestButton />
       </View>
     </SafeAreaView>
   );
