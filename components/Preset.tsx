@@ -30,11 +30,12 @@ export default PresetList;
 
 const styles = StyleSheet.create({
   presetWrapper: {
-    width: "48%",
-    flexBasis: "48%",
+    width: "45%",
+    marginVertical: 8,
+    alignItems: "center",
   },
   preset: {
-    height: 170,
+    height: 150,
     aspectRatio: 1,
     marginHorizontal: 0,
     borderRadius: 24,
@@ -78,14 +79,5 @@ const styles = StyleSheet.create({
     fontFamily: "Inter_400Regular",
     color: COLORS.subtext,
     fontSize: 14,
-  },
-  hiddenText: {
-    position: "absolute",
-    opacity: 0,
-    height: 0,
-    width: 0,
-    fontSize: 0,
-    margin: 0,
-    padding: 0,
   },
 });

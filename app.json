@@ -2,7 +2,7 @@
   "expo": {
     "name": "Vitae",
     "slug": "Vitae",
-    "version": "1.3.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "vitae",
@@ -19,9 +19,8 @@
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
         "NSMicrophoneUsageDescription": "Cette application utilise l'audio pour la méditation et la relaxation.",
-        "UIBackgroundModes": [
-          "audio"
-        ],
+        "NSUserTrackingUsageDescription": "Vitae utilise l’identifiant publicitaire pour afficher une bannière discrète qui aide à financer l’application.",
+        "UIBackgroundModes": ["audio"],
         "AVAudioSessionCategory": "playback",
         "AVAudioSessionMode": "default",
         "AVAudioSessionCategoryOptions": [
@@ -59,16 +58,32 @@
         }
       ],
       "expo-font",
-      "expo-web-browser"
+      "expo-web-browser",
+      [
+        "react-native-google-mobile-ads",
+        {
+          "iosAppId": "ca-app-pub-7483950421454182~3017038089",
+          "androidAppId": "ca-app-pub-3940256099942544~3347511713"
+        }
+      ],
+      [
+        "react-native-google-mobile-ads",
+        {
+          "iosAppId": "ca-app-pub-7483950421454182~3017038089"
+        }
+      ]
     ],
-    "assetBundlePatterns": [
-      "assets/sounds/*"
-    ],
+    "assetBundlePatterns": ["assets/sounds/*"],
     "experiments": {
       "typedRoutes": true,
       "tsconfigPaths": true
     },
     "extra": {
+      "adsEnabled": true,
+      "premium": {
+        "iosProductId": "premium_monthly_ios",
+        "priceMonthlyEUR": 1.99
+      },
       "router": {},
       "eas": {
         "projectId": "ca93dabf-6bde-418c-b65f-076550a44211"

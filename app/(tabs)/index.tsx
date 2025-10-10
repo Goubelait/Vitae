@@ -1,5 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { presetStyles } from "assets/PresetStyle";
+import BannerAdView from "components/ads/Banner";
+import PremiumCard from "components/iap/PremiumCard";
 import Player from "components/Player";
 import PresetList from "components/Preset";
 import { useSound } from "components/SoundContext";
@@ -9,7 +11,6 @@ import { Link } from "expo-router";
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 
 export default function PlayerScreen() {
   const { currentPreset, isPlaying, playPreset, togglePlay } = useSound();
@@ -54,6 +55,8 @@ export default function PlayerScreen() {
           />
         ))}
       </View>
+      <PremiumCard />
+      <BannerAdView />
     </SafeAreaView>
   );
 }
@@ -61,7 +64,6 @@ export default function PlayerScreen() {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    gap: 16,
     backgroundColor: "transparent",
   },
   headerTop: {
@@ -70,10 +72,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   header: {
-    margin: 12,
-    marginTop: 24,
-    paddingHorizontal: 16,
-    paddingVertical: 16,
+    margin: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
   },
   infoButton: {
     borderWidth: 1,
@@ -85,32 +86,29 @@ const styles = StyleSheet.create({
   playerContainer: {
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 10,
-    marginBottom: 22,
+    margin: 10,
     paddingHorizontal: 16,
   },
   container: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
+    justifyContent: "center", // ✅ centre horizontalement
+    alignItems: "center",
     alignContent: "flex-start",
     paddingHorizontal: 16,
     paddingVertical: 16,
     width: "100%",
-    maxWidth: 420,
-    alignSelf: "center",
     gap: 12,
   },
   title: {
     fontFamily: "Inter_700Bold",
-    fontSize: 42,
+    fontSize: 38,
     fontWeight: "800",
     color: COLORS.text,
   },
   subtitle: {
     fontFamily: "Inter_400Regular",
-    fontSize: 21,
+    fontSize: 18,
     color: COLORS.subtext,
     marginTop: 6,
   },
