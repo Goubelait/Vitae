@@ -17,55 +17,61 @@ export default function InfoCard({
 }: InfoCardProps) {
   return (
     <View style={styles.card}>
-      <Text style={styles.icon}>{icon}</Text>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.subtitle}>{subtitle}</Text>
-      {reference && <Text style={styles.reference}>📖 {reference}</Text>}
+      <View style={styles.iconBadge}>
+        <Text style={styles.icon}>{icon}</Text>
+      </View>
+      <View style={styles.textStack}>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subtitle}>{subtitle}</Text>
+      </View>
+      {reference && <Text style={styles.reference}>Source · {reference}</Text>}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    flex: 1,
     width: "100%",
-    minHeight: 0,
-    height: "100%",
-
-    borderRadius: 24,
-    backgroundColor: COLORS.panel + "AA",
+    borderRadius: 22,
+    backgroundColor: COLORS.panel + "C0",
     borderColor: COLORS.border,
-    borderWidth: 2,
-    padding: 14,
-    gap: 6,
-    justifyContent: "space-between",
-
+    borderWidth: 1,
+    padding: 16,
+    gap: 12,
     shadowColor: "#000",
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.12,
     shadowRadius: 6,
-    shadowOffset: { width: 0, height: 3 },
+    shadowOffset: { width: 0, height: 4 },
+  },
+  iconBadge: {
+    width: 42,
+    height: 42,
+    borderRadius: 14,
+    backgroundColor: COLORS.border + "55",
+    alignItems: "center",
+    justifyContent: "center",
   },
   icon: {
-    fontSize: 18,
-    marginBottom: 0,
+    fontSize: 20,
+  },
+  textStack: {
+    gap: 6,
   },
   title: {
     fontFamily: "Inter_700Bold",
-    fontSize: 14,
+    fontSize: 16,
     color: COLORS.text,
-    marginBottom: 0,
   },
   subtitle: {
     fontFamily: "Inter_400Regular",
-    fontSize: 12,
+    fontSize: 13,
     color: COLORS.subtext,
-    marginBottom: 0,
+    lineHeight: 20,
   },
   reference: {
     fontFamily: "Inter_400Regular",
     fontSize: 11,
-    opacity: 0.75,
     color: COLORS.subtext,
-    marginTop: 0,
+    opacity: 0.8,
   },
 });
