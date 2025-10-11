@@ -17,13 +17,17 @@ export default function PremiumCard() {
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: COLORS.panel + "AA",
-        borderRadius: 14,
+        borderRadius: 16,
         marginHorizontal: 16,
         marginTop: 8,
         paddingVertical: 8,
         gap: 6,
         borderWidth: 1,
         borderColor: COLORS.border,
+        shadowColor: "#000",
+        shadowOpacity: 0.2,
+        shadowRadius: 6,
+        shadowOffset: { width: 0, height: 3 },
       }}
     >
       <Ionicons name="star" size={18} color={COLORS.accent} />
