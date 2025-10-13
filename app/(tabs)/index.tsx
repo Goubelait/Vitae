@@ -92,11 +92,11 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "center", // ✅ centre horizontalement
+    justifyContent: "center",
     alignItems: "center",
     alignContent: "flex-start",
     paddingHorizontal: 16,
-    paddingVertical: 16,
+    paddingVertical: 10,
     width: "100%",
     gap: 12,
   },

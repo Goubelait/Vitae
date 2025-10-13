@@ -78,7 +78,7 @@ export default function PremiumCard() {
             fontWeight: "500",
           }}
         >
-          Already subscribed? Restore purchases
+          Already subscribed ? Restore purchases
         </Text>
       </Pressable>
     </View>
