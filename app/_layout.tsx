@@ -2,6 +2,7 @@ import { Inter_400Regular, Inter_700Bold } from "@expo-google-fonts/inter";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SoundProvider } from "components/SoundContext";
+import { initIAP, teardownIAP } from "components/iap/iap";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -76,6 +77,13 @@ export default function RootLayout() {
         strict: false,
       });
     } catch {}
+  }, []);
+
+  useEffect(() => {
+    initIAP();
+    return () => {
+      teardownIAP();
+    };
   }, []);
 
   if (!loaded) {
