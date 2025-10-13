@@ -38,7 +38,7 @@ export default function PremiumCard() {
           fontWeight: "600",
         }}
       >
-        Go Premium — 1.99 € / month
+        Support me — 1.99 € / month
       </Text>
     </Pressable>
   );
